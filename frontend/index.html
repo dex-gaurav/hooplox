@@ -160,7 +160,7 @@
 
         /* Styling for Financial Data Section */
         .financial-data {
-            margin-top: 50px;
+            margin-top: 20px; /* Reduced margin-top */
             text-align: center;
         }
 
@@ -179,7 +179,8 @@
 
         .financial-data .chart canvas {
             max-width: 31.5%; /* Reduced size by 30% */
-            margin-bottom: 30px;
+            height: 70px; /* Decreased height */
+            margin-bottom: 0px;
         }
 
         .expandable-box {
@@ -358,6 +359,110 @@
             max-width: 150px;
             margin: 10px;
         }
+
+        /* Styling for Retirement Calculator Section */
+        .retirement-calculator {
+            margin-top: 50px;
+            text-align: center;
+            background-color: #f0f8ff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .retirement-calculator h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .retirement-calculator .calculator-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Roboto', sans-serif;
+        }
+        .retirement-calculator p {
+            font-size: 18px;
+            color: #34495e;
+        }
+        .retirement-calculator input[type="range"] {
+            width: 100%;
+            margin: 20px 0;
+        }
+        .retirement-calculator span {
+            font-weight: bold;
+            color: #2980b9;
+        }
+
+        /* Styling for Financial Quiz Section */
+        .financial-quiz {
+            margin-top: 50px;
+            text-align: center;
+            background-color: #f9f9f9;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .financial-quiz h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .financial-quiz .quiz-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Roboto', sans-serif;
+            text-align: left;
+        }
+        .financial-quiz .quiz-box p {
+            font-size: 18px;
+            color: #34495e;
+            margin: 10px 0;
+        }
+        .financial-quiz .quiz-box .question {
+            margin-bottom: 20px;
+        }
+        .financial-quiz .quiz-box .question i {
+            margin-right: 10px;
+            color: #2980b9;
+        }
+        .financial-quiz .quiz-box .options {
+            margin-left: 30px;
+        }
+        .financial-quiz .quiz-box .options label {
+            display: block;
+            margin: 5px 0;
+        }
+        .financial-quiz .submit-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        .financial-quiz .submit-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+        .financial-quiz .result {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .financial-quiz .result.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -395,7 +500,7 @@
                     </div>
                 </div>
                 <a class="cta" href="#">Get started</a>
-                <p>*Rate subject to change.</p>
+                
             </div>
             <div class="image scroll-animation">
                 <img alt="Mobile app screenshot showing financial details" src="ai-vector-icon_923982-659.avif" height="80%" width="80%" style="padding: left 50px;"/>
@@ -459,6 +564,55 @@
                 <input type="range" id="investmentSlider" min="1000" max="100000" step="1000" value="10000" oninput="updateInvestmentValue(this.value)">
                 <p>Investment Amount: ₹<span id="investmentValue">10000</span></p>
                 <p>Estimated Retirement Age: <span id="retirementAge">65</span></p>
+            </div>
+        </div>
+
+        <!-- Financial Quiz Section -->
+        <div class="financial-quiz scroll-animation">
+            <h2>Test Your Financial Knowledge</h2>
+            <div class="quiz-box">
+                <div class="question">
+                    <p><i class="fas fa-question-circle"></i>1. What is the primary purpose of a budget?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="a"> To track income and expenses</label>
+                        <label><input type="radio" name="q1" value="b"> To save money</label>
+                        <label><input type="radio" name="q1" value="c"> To invest in stocks</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p><i class="fas fa-question-circle"></i>2. What is a credit score?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> A measure of your financial health</label>
+                        <label><input type="radio" name="q2" value="b"> A measure of your income</label>
+                        <label><input type="radio" name="q2" value="c"> A measure of your expenses</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p><i class="fas fa-question-circle"></i>3. What is the benefit of diversifying your investments?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> To increase risk</label>
+                        <label><input type="radio" name="q3" value="b"> To reduce risk</label>
+                        <label><input type="radio" name="q3" value="c"> To maximize returns</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p><i class="fas fa-question-circle"></i>4. What is an emergency fund?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="a"> Money set aside for vacations</label>
+                        <label><input type="radio" name="q4" value="b"> Money set aside for unexpected expenses</label>
+                        <label><input type="radio" name="q4" value="c"> Money set aside for investments</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <p><i class="fas fa-question-circle"></i>5. What is compound interest?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="a"> Interest calculated on the initial principal only</label>
+                        <label><input type="radio" name="q5" value="b"> Interest calculated on the initial principal and also on the accumulated interest</label>
+                        <label><input type="radio" name="q5" value="c"> Interest calculated on loans</label>
+                    </div>
+                </div>
+                <button class="submit-btn" onclick="submitQuiz()">Submit</button>
+                <div class="result" id="quiz-result"></div>
             </div>
         </div>
 
@@ -650,6 +804,27 @@
 
         // Initialize the retirement calculator
         updateInvestmentValue(document.getElementById('investmentSlider').value);
+
+        // Financial Quiz
+        function submitQuiz() {
+            const answers = {
+                q1: 'a',
+                q2: 'a',
+                q3: 'b',
+                q4: 'b',
+                q5: 'b'
+            };
+            let score = 0;
+            for (let i = 1; i <= 5; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption && selectedOption.value === answers[`q${i}`]) {
+                    score++;
+                }
+            }
+            const resultElement = document.getElementById('quiz-result');
+            resultElement.textContent = `You scored ${score} out of 5.`;
+            resultElement.classList.add('show');
+        }
     </script>
 </body>
 </html>
