@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast - HOOPLOX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f0ff;
+            color: #3a3a3a;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 36px;
+            color: #3a3a3a;
+            text-align: center;
+        }
+        .chart-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+        .transactions, .ai-predictions {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+        .transactions h2, .ai-predictions h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .transactions table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        .transactions th, .transactions td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .transactions th {
+            background: #3a3a3a;
+            color: #fff;
+        }
+        .ai-predictions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .ai-predictions li {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .ai-predictions li i {
+            margin-right: 10px;
+            color: #3a3a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Forecast</h1>
+        <div class="chart-container">
+            <canvas id="expenseChart"></canvas>
+        </div>
+        <div class="transactions">
+            <h2>Transaction History</h2>
+            <table id="transactionTable">
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Amount ($)</th>
+                </tr>
+                <!-- Sample Data -->
+                <tr><td>1</td><td>2023-10-01</td><td>10:00 AM</td><td>Grocery Store</td><td>Food</td><td>50.00</td></tr>
+                <tr><td>2</td><td>2023-10-02</td><td>11:30 AM</td><td>Restaurant</td><td>Food</td><td>30.00</td></tr>
+                <tr><td>3</td><td>2023-10-03</td><td>01:00 PM</td><td>Online Shopping</td><td>Shopping</td><td>100.00</td></tr>
+                <tr><td>4</td><td>2023-10-04</td><td>02:00 PM</td><td>Gas Station</td><td>Transport</td><td>40.00</td></tr>
+                <tr><td>5</td><td>2023-10-05</td><td>03:00 PM</td><td>Cinema</td><td>Entertainment</td><td>20.00</td></tr>
+                <tr><td>6</td><td>2023-10-06</td><td>04:00 PM</td><td>Grocery Store</td><td>Food</td><td>60.00</td></tr>
+                <tr><td>7</td><td>2023-10-07</td><td>05:00 PM</td><td>Restaurant</td><td>Food</td><td>25.00</td></tr>
+                <tr><td>8</td><td>2023-10-08</td><td>06:00 PM</td><td>Online Shopping</td><td>Shopping</td><td>150.00</td></tr>
+                <tr><td>9</td><td>2023-10-09</td><td>07:00 PM</td><td>Gas Station</td><td>Transport</td><td>35.00</td></tr>
+                <tr><td>10</td><td>2023-10-10</td><td>08:00 PM</td><td>Cinema</td><td>Entertainment</td><td>15.00</td></tr>
+                <tr><td>11</td><td>2023-10-11</td><td>09:00 PM</td><td>Grocery Store</td><td>Food</td><td>55.00</td></tr>
+                <tr><td>12</td><td>2023-10-12</td><td>10:00 PM</td><td>Restaurant</td><td>Food</td><td>35.00</td></tr>
+                <tr><td>13</td><td>2023-10-13</td><td>11:00 PM</td><td>Online Shopping</td><td>Shopping</td><td>120.00</td></tr>
+                <tr><td>14</td><td>2023-10-14</td><td>12:00 PM</td><td>Gas Station</td><td>Transport</td><td>45.00</td></tr>
+                <tr><td>15</td><td>2023-10-15</td><td>01:00 PM</td><td>Cinema</td><td>Entertainment</td><td>25.00</td></tr>
+                <tr><td>16</td><td>2023-10-16</td><td>02:00 PM</td><td>Grocery Store</td><td>Food</td><td>65.00</td></tr>
+                <tr><td>17</td><td>2023-10-17</td><td>03:00 PM</td><td>Restaurant</td><td>Food</td><td>40.00</td></tr>
+                <tr><td>18</td><td>2023-10-18</td><td>04:00 PM</td><td>Online Shopping</td><td>Shopping</td><td>130.00</td></tr>
+                <tr><td>19</td><td>2023-10-19</td><td>05:00 PM</td><td>Gas Station</td><td>Transport</td><td>50.00</td></tr>
+                <tr><td>20</td><td>2023-10-20</td><td>06:00 PM</td><td>Cinema</td><td>Entertainment</td><td>30.00</td></tr>
+            </table>
+        </div>
+        <div class="ai-predictions">
+            <h2>AI Insights & Analytics</h2>
+            <ul id="aiInsights">
+                <li><i class="fas fa-arrow-up"></i> Highest Spending Category: <strong>Shopping</strong></li>
+                <li><i class="fas fa-arrow-down"></i> Lowest Spending Category: <strong>Entertainment</strong></li>
+                <li><i class="fas fa-chart-pie"></i> Total Spent: <strong>$1,200.00</strong></li>
+                <li><i class="fas fa-percentage"></i> Average Monthly Spending: <strong>$60.00</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        async function fetchChartData() {
+            const chartData = {
+                labels: ['Food', 'Shopping', 'Transport', 'Entertainment'],
+                data: [500, 500, 170, 100]
+            };
+            
+            const ctx = document.getElementById('expenseChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Expenses ($)',
+                        data: chartData.data,
+                        backgroundColor: 'rgba(58, 58, 58, 0.5)',
+                        borderColor: '#3a3a3a',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#3a3a3a'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        fetchChartData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast - Wealthfront</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f0ff;
+            color: #3a3a3a;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 36px;
+            color: #3a3a3a;
+            text-align: center;
+        }
+        .chart-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+        .transactions {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+        .transactions h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .transactions table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        .transactions th, .transactions td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .transactions th {
+            background: #3a3a3a;
+            color: #fff;
+        }
+        .ai-predictions {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+        .ai-predictions h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .ai-predictions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .ai-predictions li {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .ai-predictions li i {
+            margin-right: 10px;
+            color: #3a3a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Forecast</h1>
+        <div class="chart-container">
+            <canvas id="expenseChart"></canvas>
+        </div>
+        <div class="transactions">
+            <h2>Transaction History</h2>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Amount ($)</th>
+                </tr>
+                <tr><td>01/01/2024</td><td>Grocery Shopping</td><td>Food</td><td>50.00</td></tr>
+                <tr><td>01/02/2024</td><td>Electricity Bill</td><td>Utilities</td><td>80.00</td></tr>
+                <tr><td>01/03/2024</td><td>Restaurant</td><td>Dining</td><td>30.00</td></tr>
+                <tr><td>01/04/2024</td><td>Netflix Subscription</td><td>Entertainment</td><td>15.00</td></tr>
+                <tr><td>01/05/2024</td><td>Fuel</td><td>Transport</td><td>40.00</td></tr>
+            </table>
+        </div>
+        <div class="ai-predictions">
+            <h2>AI Predictions</h2>
+            <ul>
+                <li><i class="fas fa-chart-line"></i> Your spending has increased by 15% compared to last month.</li>
+                <li><i class="fas fa-wallet"></i> Consider reducing entertainment expenses by 10%.</li>
+                <li><i class="fas fa-shopping-cart"></i> Grocery spending is stable, no major changes needed.</li>
+                <li><i class="fas fa-coins"></i> AI suggests saving an additional $50 this month.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('expenseChart').getContext('2d');
+        const expenseChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['6 Months Ago', '5 Months Ago', '4 Months Ago', '3 Months Ago', 'Last Month', 'This Month'],
+                datasets: [{
+                    label: 'Expenses ($)',
+                    data: [300, 350, 400, 450, 500, 550],
+                    backgroundColor: 'rgba(58, 58, 58, 0.2)',
+                    borderColor: '#3a3a3a',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#3a3a3a'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

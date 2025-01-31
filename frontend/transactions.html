@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Financial Advisor - Add Transaction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Add New Transaction</h2>
+    <form id="transactionForm">
+      <div class="mb-3">
+        <label for="transactionType" class="form-label">Transaction Type</label>
+        <select class="form-select" id="transactionType" required>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="transactionAmount" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="transactionAmount" required>
+      </div>
+      <div class="mb-3">
+        <label for="transactionCategory" class="form-label">Category</label>
+        <input type="text" class="form-control" id="transactionCategory" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Transaction</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('transactionForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const type = document.getElementById('transactionType').value;
+      const amount = document.getElementById('transactionAmount').value;
+      const category = document.getElementById('transactionCategory').value;
+
+      const transaction = { type, amount, category };
+      let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+      transactions.push(transaction);
+      localStorage.setItem('transactions', JSON.stringify(transactions));
+
+      alert('Transaction added successfully!');
+      document.getElementById('transactionForm').reset();
+    });
+  </script>
+</body>
+</html>

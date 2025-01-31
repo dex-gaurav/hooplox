@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Advisor - HOOPLOX</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f0ff;
+            color: #3a3a3a;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #3a3a3a;
+            margin: 0 15px;
+            font-weight: 700;
+        }
+        .navbar .logo img {
+            height: 40px;
+        }
+        .advisor-section {
+            text-align: center;
+            padding: 50px 0;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .advisor-section h1 {
+            font-size: 48px;
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .advisor-section p {
+            font-size: 18px;
+            font-family: 'Roboto', sans-serif;
+            color: #34495e;
+            margin: 20px 0;
+        }
+        .upload-form {
+            margin-top: 30px;
+        }
+        .upload-form input[type="file"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #3a3a3a;
+            margin-right: 10px;
+        }
+        .upload-form button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-form button:hover {
+            background-color: #0056b3;
+        }
+        .data-display {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .data-display h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50;
+        }
+        .data-display table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        .data-display th, .data-display td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .data-display th {
+            background: #3a3a3a;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img alt="HOOPLOX logo" src="logo3.jpeg" height="200px" width="250px" />
+            </div>
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="forecast.html">Expenses</a>
+                <a href="stock-insights.html">Stock Insights</a>
+                <a href="categorize.html">Transaction</a>
+                <a href="your-advisor.html">Your Advisor</a>
+                <a href="about-us.html">About Us</a>
+            </div>
+        </div>
+        <div class="advisor-section">
+            <h1>Your Financial Advisor</h1>
+            <p>Upload your financial statement PDF to get personalized insights and advice.</p>
+            <form class="upload-form" id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" id="pdfFile" name="file" accept=".pdf,.csv" required>
+                <button type="submit">Upload</button>
+            </form>
+            <div class="data-display" id="dataDisplay" style="display: none;">
+                <h2>Financial Data</h2>
+                <table id="dataTable">
+                    <tr>
+                        <th>Date</th>
+                        <th>Transaction Type</th>
+                        <th>Credit (₹)</th>
+                        <th>Debit (₹)</th>
+                        <th>Balance (₹)</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            setTimeout(() => {
+                const dataDisplay = document.getElementById('dataDisplay');
+                const dataTable = document.getElementById('dataTable');
+
+                const transactions = [
+                    { date: '21 Nov 2024', type: 'Credit', credit: '5,000', debit: '-', balance: '5,000' },
+                    { date: '23 Nov 2024', type: 'Debit', credit: '-', debit: '2,000', balance: '3,000' },
+                    { date: '25 Nov 2024', type: 'Credit', credit: '3,500', debit: '-', balance: '6,500' },
+                    { date: '28 Nov 2024', type: 'Debit', credit: '-', debit: '1,500', balance: '5,000' },
+                    { date: '30 Nov 2024', type: 'Credit', credit: '2,000', debit: '-', balance: '7,000' },
+                    { date: '02 Dec 2024', type: 'Debit', credit: '-', debit: '3,000', balance: '4,000' }
+                ];
+
+                transactions.forEach(transaction => {
+                    const row = `<tr>
+                        <td>${transaction.date}</td>
+                        <td>${transaction.type}</td>
+                        <td>${transaction.credit}</td>
+                        <td>${transaction.debit}</td>
+                        <td>${transaction.balance}</td>
+                    </tr>`;
+                    dataTable.innerHTML += row;
+                });
+
+                dataDisplay.style.display = 'block';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

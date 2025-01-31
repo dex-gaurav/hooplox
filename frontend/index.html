@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOOPLOX</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f0ff;
+            color: #3a3a3a;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #3a3a3a;
+            margin: 0 15px;
+            font-weight: 700;
+        }
+        .navbar .logo img {
+            height: 40px;
+        }
+        .navbar .buttons a {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+        .navbar .buttons .login {
+            border: 2px solid #3a3a3a;
+            color: #3a3a3a;
+        }
+        .navbar .buttons .get-started {
+            background-color: #3a3a3a;
+            color: #fff;
+        }
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 0;
+        }
+        .hero .text {
+            max-width: 50%;
+        }
+        .hero .text h1 {
+            font-size: 48px;
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .hero .text p {
+            font-size: 18px;
+            font-family: 'Roboto', sans-serif;
+            color: #34495e;
+            margin: 20px 0;
+        }
+        .hero .text .cta {
+            background-color: #3a3a3a;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .hero .image img {
+            max-width: 100%;
+            height: auto;
+            transform: translateX(40px); /* Shift image further to the right */
+        }
+        .features {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px 0;
+        }
+        .features .feature {
+            text-align: center;
+            max-width: 45%;
+        }
+        .features .feature i {
+            font-size: 40px;
+            color: #3a3a3a;
+        }
+        .features .feature h3 {
+            font-size: 24px;
+            font-family: 'Montserrat', sans-serif;
+            color: #2980b9;
+            margin: 20px 0 10px;
+        }
+        .features .feature p {
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            color: #7f8c8d;
+        }
+
+        /* Styling for Expense Section */
+        .expense-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .expense-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .expense-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .expense-info {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .expense-info.show {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Additional Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .expense-info-content {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Styling for Financial Data Section */
+        .financial-data {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .financial-data h2 {
+            font-size: 32px;
+            color: #3a3a3a;
+            margin-bottom: 20px;
+        }
+
+        .financial-data .chart {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-items: center; /* Align items vertically */
+        }
+
+        .financial-data .chart canvas {
+            max-width: 31.5%; /* Reduced size by 30% */
+            margin-bottom: 30px;
+        }
+
+        .expandable-box {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .expandable-box:hover {
+            background-color: #d0d3d4;
+        }
+
+        .expandable-content {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .expandable-box.active .expandable-content {
+            display: block;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #3a3a3a;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer .links {
+            margin-top: 20px;
+        }
+
+        .footer .links a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer .subscribe-box {
+            margin-top: 20px;
+        }
+
+        .footer input[type="email"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        .footer button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .footer button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Media Query */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero .text, .hero .image {
+                max-width: 100%;
+            }
+            .features {
+                flex-direction: column;
+                text-align: center;
+            }
+            .features .feature {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+        .additional-info {
+            background-color: #ecf0f1;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .additional-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50;
+        }
+        .additional-info p, .additional-info ul {
+            font-family: 'Roboto', sans-serif;
+            color: #34495e;
+        }
+        .additional-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .additional-info ul li {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
+        }
+        .scroll-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .finance-news {
+            margin-top: 50px;
+            text-align: center;
+            background-color: #f5f0ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .finance-news p {
+            font-size: 18px;
+            font-family: 'Roboto', sans-serif;
+            color: #34495e;
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .sponsor-section {
+            margin-top: 50px;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .sponsor-logos {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .sponsor-logos img {
+            max-width: 150px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img alt="HOOPLOX logo" src="logo3.jpeg" height="200px" width="250px" />
+            </div>
+            <div class="links">
+                <a href="forecast.html">Expenses</a>
+                <a href="stock-insights.html">Stock Insights</a>  <!-- Redirects to AI Stock Page -->
+                <a href="categorize.html">Transaction</a>
+                <a href="your-advisor.html">Your Advisor</a>
+                <a href="about-us.html">About Us</a>
+            </div>
+            <div class="buttons">
+                <a class="login" href="login.html">Log in</a>
+                <a class="get-started" href="signup.html">Get started</a>
+            </div>
+        </div>
+        <div class="hero">
+            <div class="text scroll-animation">
+                <h1>AI Finance Advisor at Your Fingertips</h1>
+                <p>Welcome to HOOPLOX, your AI-powered finance advisor. We help you manage your finances with ease and efficiency. Our platform offers a range of services to help you save, invest, and grow your wealth.</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-wallet"></i>
+                        <h3>Your Money</h3>
+                        <p>our responsibility.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Invest with expert-built portfolios and strategies.</h3>
+                        <p>Our AI-driven insights help you build a diversified portfolio to achieve your financial goals.</p>
+                    </div>
+                </div>
+                <a class="cta" href="#">Get started</a>
+                <p>*Rate subject to change.</p>
+            </div>
+            <div class="image scroll-animation">
+                <img alt="Mobile app screenshot showing financial details" src="ai-vector-icon_923982-659.avif" height="80%" width="80%" style="padding: left 50px;"/>
+            </div>
+        </div>
+
+        <!-- Additional Information Section -->
+        <div class="additional-info scroll-animation">
+            <h2>Why Choose HOOPLOX?</h2>
+            <p>HOOPLOX leverages advanced AI technology to provide personalized financial advice, helping you make informed decisions about your money. Whether you're looking to save for the future, invest in the stock market, or manage your daily expenses, HOOPLOX is here to guide you every step of the way.</p>
+            <ul>
+                <li>Personalized financial advice</li>
+                <li>AI-driven insights</li>
+                <li>Comprehensive financial management</li>
+                <li>Secure and reliable platform</li>
+            </ul>
+        </div>
+
+        <!-- Expense Section -->
+        <div class="expense-section scroll-animation">
+            <button class="expense-btn" id="expense-btn">Get Expense Info</button>
+            <div class="expense-info" id="expense-info">
+                <div class="expense-info-content">
+                    <h2>Your Expense Breakdown:</h2>
+                    <p>Total Spent: $450</p>
+                    <p>Shopping: $200</p>
+                    <p>Food: $150</p>
+                    <p>Entertainment: $100</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Data Section -->
+        <div class="financial-data scroll-animation">
+            <h2>Financial Data Overview</h2>
+            <div class="chart">
+                <canvas id="expenseChart"></canvas>
+                <canvas id="investmentChart"></canvas>
+            </div>
+            <div class="expandable-box" onclick="toggleExpandableContent(this)">
+                <h3>Expense Analysis</h3>
+                <div class="expandable-content">
+                    <p>Detailed analysis of your expenses over the past month, including categories such as shopping, food, and entertainment.</p>
+                    <p>Our AI suggests ways to optimize your spending and save more.</p>
+                </div>
+            </div>
+            <div class="expandable-box" onclick="toggleExpandableContent(this)">
+                <h3>Investment Insights</h3>
+                <div class="expandable-content">
+                    <p>Comprehensive insights into your investment portfolio, including stocks, bonds, and real estate.</p>
+                    <p>Our AI provides recommendations to maximize your returns based on current market trends.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Retirement Calculator Section -->
+        <div class="retirement-calculator scroll-animation">
+            <h2>Retirement Calculator</h2>
+            <div class="calculator-box">
+                <p>Enter your monthly investment amount (₹):</p>
+                <input type="range" id="investmentSlider" min="1000" max="100000" step="1000" value="10000" oninput="updateInvestmentValue(this.value)">
+                <p>Investment Amount: ₹<span id="investmentValue">10000</span></p>
+                <p>Estimated Retirement Age: <span id="retirementAge">65</span></p>
+            </div>
+        </div>
+
+        <!-- Finance News Section -->
+        <div class="finance-news scroll-animation" id="finance-news">
+            <p>Loading latest finance news...</p>
+        </div>
+
+        <!-- Sponsor Section -->
+        <div class="sponsor-section scroll-animation">
+            <h2>Our Sponsors</h2>
+            <div class="sponsor-logos">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXAAAACJCAMAAAACLZNoAAAAxlBMVEX///8AUZLEJhsAT5EASo8oXplzlLp5mbwATZAqYpsARYwASI4AS48AQYrAAABYe6mKpsQAPYlcg6/T3umDn8DDHA4AQ4zr8fayw9f4+/3UcGtCcaSSrMjDIRXCFgAAVJT67u3h6fCpvdNYfKn99/dmirMiW5jL2OW8zN2ftc5MdKXKQzv45+bHNi3o7PLRZF/iop/dko7x0tDPW1XXe3fns7DMT0jrvrwAMYTjp6Q4a6HuycfLR0D03NrGLCLahoIANobZgXwWEA5OAAAPZ0lEQVR4nO2deXuiOhSHo6GKCFbqSute0a522rmzOffO8v2/1CWQjSyAjkoZ+f0xzzOCePISTk5OTigApUqVKlVK0jJvA85MT//lbcGZ6TVvA85M/8zytuC89KXs4CfVbJK3BWemxy95W3Been3M24Lz0lurDAlPqWXrOm8TzksfW7O8TTgrfWiVIeEp9dbq5W3CWWk5bn3K24az0sukDAlPqQ+t1lveNpyTAgf+krcN56Tlj3HrKW8jzkkvk8nPvG04J31rVSflwtrp9F+r2vqWtxFnpOXzePyctxHnpOtJtfU9byPOSIED733M24gzUuDAq2Ua/IR6Hlcn/+RtxBnpn0nQwcuQ8GT6hBzKh7ytOB89BbyLGxL6jey60GivL+2n1WXowKutL8BfBdrnGju0eNeGrBJlDgLgl7YpCb5bmc1B6MDHn8HazduYneVGwCsFkrsOHTgKCbcwb2N2VvGAW23wFPTvau8aLPp5G7O73E3BgNs3ADz2UAefebB4HbxwwCH0wG/UwSevoNvM25o95BQMeODAvyAHPq6CgZu3MfuoYMD7IzCbjJFD+QSuCmM1r2IBNx4A+Bc58PEj6Dh5W7OXnHmBgMOpB34iB15tvYEbM29z9lKhgDtr8B058GrvBdwVs4MXCjh14NXWE1gVs4MXCbh9C8Bn5MCrk5/g3srbnD1VHOBm4MBfQ4cy7i1BEUPwUIUBDvsd7MBRZUS7BH5sOfdgGTnw8TMYWAWc1EdyOsUAblwRB44qI2pG3vbsrZMBh2bTsvqW1TT36ZzmFGAHjioj5n8cEmpvmHlsFDrgsEklxV9G+LFhGDb7n6T4JaFlXbaHd+u7YdtfuZa9I3ToUAeO0uAPsklI2CrDTs0iNkeaMcCs1XQp36idsSs35Y+QsYbiVCoNcHg7amONHoSjVi060G3XgyOwrZbPfQtaq6HHVvQGQ39HH+wswHIcOvDq5DdYSx38IrCmi62q164almMlhem2r3uojS6oq4lH7RzdcIavRiPxI3TxLeGmbKOuh08ZIK8Sv60+WwsNvmdq1knvuEA5mLGI2mmtBv3kx8iBo2LZCxEmvBEvP19s+/pfCCIF+aaFCoCDmjLEx+1csIPmNvqoG/NPZgOTW6vdlg64wbDGZ9Hmit6KBfrc1gAfMsustXxY9gp6wQu0sQTz/qBY55GBowY3dKGjeau94wg48FXEbalZUAWc4uloXJN20HTvmO0+d0m3Q3uRxRmSANxV8N4FOHTn4A3zHv8QH7jwDBVwDTjShDslkBA4uFJ80cwEHMIBgaN5wPRRisE5FRZZ9O/pp42QWSrwZld1eAfgzhAsq2M8Yn4BbZmGBrjmR8zo7JWKSAQcPMgPhx54mwE37Xn02cbWtS8BuMqpoHwGFnZ1Oh9OLYPKw5eZgTdrALxgB977rJzzEOCddaAO6ygDpR93oiduoer/GDi4kRxwFuDQwLwHU23zEuJwh3cq0RmwQltz58YM0QI32uyzzl1nsCtws8EcOAoJVXMeAvzW7ff7jtPokl/xFQ0jnLyp4m4Q4GAr/owC+I0IvI/drbfSR/MJwDm6wIvOcKg7HpAfTotS+vQr66nTd5qN9mYX4LA/D+uSow5+DeaqhUzS9KvoosEUC/c0laPuk340UnRxCtxrCExk4KYInA5W4nd5Jc000XSadljkVCzmjrfkKxS4N1zcj0b3RKRzWeSubVyEI5hwulfz7MBdzoFXWzMgTgpCCcCjxyK0Sb495gU1WBHFUODAE4LPVOCQeoRt0mw1cWrPO5VbmzYjUJ3+LgW++WqRWabFzTRNApz5TNuteRmBW8iBTzDvyasmfJaAR80KJPsfa0Eb0ZWPMuBgEF/iUAB/iAEPxvZIihGXU3IupckNQBZ6urHuWM9hwNVVC5Bcgo/mjcoqySh28W24sQSHhL3gYVUGW6YEnGCdSuZwY7iizoIDDgaxDEEacJfcSFVMySkZeMypfKV9Y8BdMw24RQYw0Ng9xdfcMAeOKiM0tW0K4Li7SedbLKxVjan8EB/EdhxxmAzcJdfVBf9EKdlC+pwEYvPzLfewUeCauhw2aHoPzo45KzT5og58/Bh0WPUFZOBO9DDKaUU8u4j+lUdgIzZpmBusocnAHQJHk4lhSkvPGgMgqcvfxDTgfJ8ZVjQpNLWsergzkHTwN2VcEdogDZr4g3vRnTYjMGs8x5AaHgcOOszeROB98rVuanlpGnD7UuIdL1BgwH8ZRDY3z4JT7qte28meb0YO/BN1KL0X4OnyUSJwm4w20myyGfWfWyfq4tIYHHMpiDg9IQl4v4ZPH6Un6vtpCxDOIm4CGMST2SwsrHeJ6l1uUh3zmmDgu1kj8ODhYg4cVUZo13kocMu2DcNyHjYYhfhE4DTDxiVGiSksApx2M3pLEoC7ZE5+n6HaMRU47AtO5UYZnwrinmXobGKH5jfZqrpRTPpMHDiqjNCv8xDgI7/m19oL8nsL8QsQj+B1gzx3Q8EWArxJUxh3eODRA6+TcxdZqktTgdPrYo0EE9XA+RUVeOHFDy6aGfwKmmQxB47S4LfaR8NUJa8GvjxiRo++Z0E63xSGYQK8YtFMEg6B9cBJXHGXKSZIB17p805FKqFU56ZiS1h2Q3hINtvUKgfE8BPnUL7plgzIyaIWX+UHyY1cOyoiosNq3OtQ4Bzxocu1UwGc8k5rU6gMwMlIE0oahtJ7eHCOIabE06JV5MCfGG+0QXCr9/0Ze7h9xbWBzEXjA3GTAueIh64pFXjtcMBtduW61DWzAA/6Vl1wK+p1LCqUJXscsw7+PUrmaKQEHl/lC42IGEcZLexehJIi1sMDNCT2APdOBuDpIXioLMArLr2oXCOcDXilOR3Gz0j8Tasdbe0mIeHHAEGCgyTAB5vNfD5nz2PcC5EIN2oDxM9tPGfOA2fRNWg7CcBpwimlE0XaEbi8hpIapWDB/rbDn6FeHIiEHqkvzKGgNHhi8aZJ8+FW3+k3pz5J+sS6L86ednAsYeHJYSzYjAGvODQq7zp64F3qe1LSKKEO18O99ojq/krhcE33ih88a9ofhabHO3D0zggvsSk0Dg8vCaHxi8y0DfkkkkAhkWEs2owDr7g0nVF3tMDbv6jvyUD8cMA3v7gyIPUAZ3C5Ue2ytuTA0Tsj6omJLzmXQpbA66xlOBBkGQgSGfLhpgCc5aRAzdMCN5jvuU0NvzKVurl0xEsCnmWUdq7Y4KkDjqpYfk64Dv4BzBP8T0UFnKyjsXET4mR+3SK72g18Du/pReDSRFudS2G+R14MFQnsCFxqeFp6VpDFcjPq3Ha4Ts078PEPkLZhTQYe7bDmpw39aND2ttsGebPBFLt6bn5PgNM8OnTjg31atjB5uaeyM3C5fCYVuFBHyOpabtUrqVMPzDjeqDJinXIvFcBxmO3RVAifQxPErXxKwOMFOhny4fLyc1xHB27705hfs2iPUQNHN+TfHuPd+5xeF6fq4fM4cEvMwfFi83sFcBgjnr7iIy0/x3V04AHgumuwr7EernQpzn3cgaM0eOqkWQHc9mJGJXVwfn6vAB4v1cuwpikuPwsN7Gj7GlM24F8tXqRbo5T/oG5ZuLDFYeVFKoxoTe8771B615oaqZgNEvAmjtTW2FvEc8SiPOoFlMChxWYQeuDsSUgoAzokcDCIicQH0RqKt7isOP2+M2XrdKqdxHDlkZ2BpIPPMmxYk1d8SIkfmfFCIbMgiE6QlMAD4nT5XA88I/HDuRRBhKddxx94m/V6zp3QlgcXtHGKbCzBIeEr8NIXLNjEB4V7tuE0SEo8qn+kOalRVxQmROrn1MArkNQMJgHn6qQ2+kTEAXu4BrivOUHBETnwV96hoA2CGV7SQSeR09VqenHZZcVekREQVyPN2Sog1i98KpnfS3E4FqxsMgBnvmdu6Igfv4ffqo8rNv41RQeOKiOyhPeabCEgpftkaVjOJpBEKJnf64BXzMpAB5yrJ+KI716uzOlPgJM5n3hYNgjV3c96vANHlRFZXtKhA+7jm4pnQarCWxw+EgQEuHyiOR2IwG8k4BXYJL6ns9seH8GqPwG+Uh1VDCvhyPSxF+vg32luL1Fq4N4thmMrU9+RSFocOx8M3FPAssO9DSnAK9Akw4eiSyEdbmqvA95UHJwrhnGUtYg58DANnuklHSrg3r1BWkUmQSoAZF0Zzwqw81EO1CZam00DTp4EoKjBiJqZadCkzZCBq9c0uWSg0xEPeW1XbjvaOPUW440qI7ItFIprL2A+9B1WO4o7sTq8JBs0ojCWuBTlbbYD4omDZvQxJd5RTfIzAbeviBRzEB997ktiSU9nVRtuWBzc6ULFo42qiMnOQBIS/gTyhjW1VtTAq9vbh0bT4XeCwpvIQqmwMzo69cMWRDE83PrhuRoOjdiy3Sr6ojhjNi/wFf0LxTUyAa/QN3cqnsrwc1sSRwoaVn9647dH96P6w9RRJndkBz6eLLO/pIO9UTT4ZXFfLIw+13wV2lHryP/QubrbbNzE6j81TMgV1ftKMgE/gEw73J+s2fiNkqAfBIfyjZtyvxfBPyZ1MuCJQmWbggNHlRGFfDFhit4FcFS2KThwlAYf7FreXAS9C+AoNHuJOfAwDe6/O49yAL0H4CjLJjhwVBlR0BcTpugdAEdlm/8JvNFf01BuWCu88geOXpe8/DEWgM8K+2LCFOUOPCw5e5kIvF8zz3mKptyBowK0b4JDQZURRXwZexblDRxV/YgOHIWEoIgvY8+iEHh+L4YOK1qfBQeO0uC6DWuFV77Aw/cnXE/EDv4GBn9jCB4qX+CoSOWT6FBQZURy8WaRFQHPKSBAi8aSA0dp8D9/MeG7VZ7Aw538ogMPQ8Ji/rWBTMoROKr64TeW4BGzt8y2kFlQRWGhhZYMxJoNheR1hnRpL4b2Z0sOHFVGgIaVwZZ97TmI7fvrFwI+8mvZVN9D2osNQWxjCe7gzwB0spqzlz0HsX1/+fF92SfWo+jAyz8qfVRJDhy9M6LUAfX6cs1JTFlVyz8qfXB9bvU4Sbwnv/M28K/TZ7lX88DLPyp9cCURL/+o9DGkJz6u5m3b36l/Zd+NO/iXvE37S6UhjiojSh1DSzXxMiQ8mpaPCuIoDV7qWHqWibdmeRv1N0vu4ygNXup4EomjVyeXOqaWca+C0uCljqrlD444qowodWTxfbz1lrc15yBGvEyDn0Yz4lVaT3mbcibCfhxtECx1EkV9vFWmwU8mRLxMg59Ss3HvR942nJdmvTINXqpUqVJ763/B4JO/eXadkQAAAABJRU5ErkJggg==" alt="Sponsor 1" />
+                <img src="https://logos-world.net/wp-content/uploads/2023/02/SBI-Logo.png" alt="Sponsor 2" />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJV_4_diQRGPa6Cl0Rv0tFcTrscHg_UTd1Fg&s" alt="Sponsor 3" />
+                <img src="https://5.imimg.com/data5/BC/QE/UQ/SELLER-24930669/hdfc-bank-500x500.jpg" alt="Sponsor 4" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2023 HOOPLOX. All rights reserved.</p>
+        <div class="links">
+            <a href="about-us.html">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="subscribe-box">
+            <input type="email" placeholder="Enter your email to subscribe">
+            <button>Subscribe</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // AI functionality to simulate fetching expense data
+        const expenseData = {
+            total: 450,
+            shopping: 200,
+            food: 150,
+            entertainment: 100
+        };
+
+        document.getElementById('expense-btn').addEventListener('click', function() {
+            // Trigger the display of expense information
+            const expenseInfo = document.getElementById('expense-info');
+            const content = document.querySelector('.expense-info-content');
+            
+            // Update the content dynamically (simulating AI-based analysis)
+            content.innerHTML = `
+                <h2>Your Expense Breakdown:</h2>
+                <p>Total Spent: $${expenseData.total}</p>
+                <p>Shopping: $${expenseData.shopping}</p>
+                <p>Food: $${expenseData.food}</p>
+                <p>Entertainment: $${expenseData.entertainment}</p>
+                <p><strong>AI Prediction:</strong> You can save up to 15% on your shopping expenses this month if you cut back on non-essential purchases.</p>
+            `;
+            
+            // Show the info with an animation
+            expenseInfo.classList.add('show');
+        });
+
+        // Expense Chart
+        const ctxExpense = document.getElementById('expenseChart').getContext('2d');
+        const expenseChart = new Chart(ctxExpense, {
+            type: 'pie',
+            data: {
+                labels: ['Shopping', 'Food', 'Entertainment'],
+                datasets: [{
+                    data: [200, 150, 100],
+                    backgroundColor: ['#007BFF', '#28A745', '#FFC107'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Expense Breakdown'
+                    }
+                }
+            }
+        });
+
+        // Investment Chart
+        const ctxInvestment = document.getElementById('investmentChart').getContext('2d');
+        const investmentChart = new Chart(ctxInvestment, {
+            type: 'bar',
+            data: {
+                labels: ['Stocks', 'Bonds', 'Real Estate'],
+                datasets: [{
+                    label: 'Investment Value',
+                    data: [5000, 3000, 2000],
+                    backgroundColor: ['#007BFF', '#28A745', '#FFC107'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Investment Portfolio'
+                    }
+                }
+            }
+        });
+
+        // Scroll Animation
+        const scrollElements = document.querySelectorAll('.scroll-animation');
+
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('visible');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+
+        handleScrollAnimation();
+
+        function toggleExpandableContent(element) {
+            element.classList.toggle('active');
+        }
+
+        // Finance News Slider
+        const financeNews = [
+            "Stock market hits record high.",
+            "New AI technology revolutionizes finance industry.",
+            "Cryptocurrency prices soar as investors flock to digital assets.",
+            "Federal Reserve announces interest rate hike.",
+            "Major banks report strong quarterly earnings."
+        ];
+        let newsIndex = 0;
+
+        function updateFinanceNews() {
+            const newsElement = document.getElementById('finance-news').querySelector('p');
+            newsElement.textContent = financeNews[newsIndex];
+            newsIndex = (newsIndex + 1) % financeNews.length;
+        }
+
+        setInterval(updateFinanceNews, 10000); // Update every 10 seconds
+        updateFinanceNews(); // Initial call to display the first news item
+
+        // Retirement Calculator
+        function updateInvestmentValue(value) {
+            document.getElementById('investmentValue').textContent = value;
+            const retirementAge = calculateRetirementAge(value);
+            document.getElementById('retirementAge').textContent = retirementAge;
+        }
+
+        function calculateRetirementAge(investment) {
+            const retirementAmount = 10000000; // 1 crore in rupees
+            const annualReturnRate = 0.08; // 8% annual return
+            const currentAge = 25;
+            let age = currentAge;
+            let totalAmount = 0;
+
+            while (totalAmount < retirementAmount) {
+                totalAmount += investment * 12;
+                totalAmount += totalAmount * annualReturnRate;
+                age++;
+            }
+
+            return age;
+        }
+
+        // Initialize the retirement calculator
+        updateInvestmentValue(document.getElementById('investmentSlider').value);
+    </script>
+</body>
+</html>
