@@ -4,27 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Hooplox</title>
-    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #d4edda;
-            color: #155724;
-            padding: 1rem;
-            border-radius: 0.5rem;
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .login-card {
+            max-width: 400px;
+            margin: auto;
+        }
+        .login-header {
+            margin-bottom: 20px;
+        }
+        .login-header svg {
+            color: #007BFF;
+        }
+        .login-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .login-header p {
+            color: #34495e;
+        }
+        .login-form {
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .input-group {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
         }
-        .success-message svg {
-            color: #28a745;
+        .input-group input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 16px;
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        .remember-me input {
+            margin-right: 5px;
+        }
+        .forgot-password {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .login-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-btn svg {
+            margin-right: 10px;
+        }
+        .login-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .signup-link {
+            margin-top: 20px;
+            color: #34495e;
+        }
+        .signup-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
